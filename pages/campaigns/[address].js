@@ -1,8 +1,9 @@
 import Layout from '../../components/Layout';
 import { useRouter } from 'next/router';
 import Campaign from '../../ethereum/campaign';
-import { Card } from 'semantic-ui-react';
+import { Card, Grid, GridColumn } from 'semantic-ui-react';
 import web3 from '../../ethereum/web3';
+import ContributeForm from '../../components/ContributeForm';
 
 const CampaignShow = (props) => {
     const router = useRouter();
@@ -47,7 +48,12 @@ const CampaignShow = (props) => {
         <Layout>
             <h2>Campaign Details</h2>
             <p>{address}</p>
-            {renderCards()}
+            <Grid>
+                <GridColumn width={10}>{renderCards()}</GridColumn>
+                <GridColumn width={6}>
+                    <ContributeForm address={address} />
+                </GridColumn>
+            </Grid>
         </Layout>
     );
 };
@@ -61,6 +67,7 @@ CampaignShow.getInitialProps = async (props) => {
 
     console.log(summary);
     return {
+        address: props.query.address,
         minimumContribution: summary[0],
         balance: summary[1],
         requestsCount: summary[2],
