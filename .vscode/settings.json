@@ -1,4 +1,5 @@
 {
     "editor.formatOnSave": true,
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+    "solidity.compileUsingRemoteVersion": "v0.4.17+commit.bdeb9e52"
 }
