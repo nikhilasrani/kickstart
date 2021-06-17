@@ -3,11 +3,14 @@ import Layout from '../../components/Layout';
 import { Button, Form, Input, Message } from 'semantic-ui-react';
 import factory from '../../ethereum/factory';
 import web3 from '../../ethereum/web3';
+import { useRouter } from 'next/router';
 
 const CampaignNew = () => {
     const [minimumContribution, setMinimumContribution] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [loading, setLoading] = useState(false);
+
+    const router = useRouter();
 
     const onSubmit = async (event) => {
         event.preventDefault();
@@ -19,6 +22,8 @@ const CampaignNew = () => {
             await factory.methods.createCampaign(minimumContribution).send({
                 from: accounts[0]
             });
+
+            router.push('/');
         } catch (err) {
             setErrorMessage(err.message);
         }

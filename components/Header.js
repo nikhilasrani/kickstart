@@ -1,12 +1,19 @@
 import { Menu } from 'semantic-ui-react';
+import LinkTo from './LinkTo';
 
 const Header = () => {
     return (
         <Menu style={{ marginTop: 10 }}>
-            <Menu.Item>CrowdCoin</Menu.Item>
+            <LinkTo href="/" className="item">
+                CrowdCoin
+            </LinkTo>
             <Menu.Menu position="right">
-                <Menu.Item>Campaigns</Menu.Item>
-                <Menu.Item>+</Menu.Item>
+                <LinkTo href="/" className="item">
+                    Campaigns
+                </LinkTo>
+                <LinkTo href="/campaigns/new" className="item">
+                    +
+                </LinkTo>
             </Menu.Menu>
         </Menu>
     );
