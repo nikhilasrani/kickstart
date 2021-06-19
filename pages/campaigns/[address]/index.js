@@ -1,9 +1,10 @@
-import Layout from '../../components/Layout';
+import Layout from '../../../components/Layout';
 import { useRouter } from 'next/router';
-import Campaign from '../../ethereum/campaign';
-import { Card, Grid, GridColumn } from 'semantic-ui-react';
-import web3 from '../../ethereum/web3';
-import ContributeForm from '../../components/ContributeForm';
+import Campaign from '../../../ethereum/campaign';
+import { Card, Grid, GridColumn, GridRow, Button } from 'semantic-ui-react';
+import web3 from '../../../ethereum/web3';
+import ContributeForm from '../../../components/ContributeForm';
+import LinkTo from '../../../components/LinkTo';
 
 const CampaignShow = (props) => {
     const router = useRouter();
@@ -49,10 +50,19 @@ const CampaignShow = (props) => {
             <h2>Campaign Details</h2>
             <p>{address}</p>
             <Grid>
-                <GridColumn width={10}>{renderCards()}</GridColumn>
-                <GridColumn width={6}>
-                    <ContributeForm address={address} />
-                </GridColumn>
+                <GridRow>
+                    <GridColumn width={10}>{renderCards()} </GridColumn>
+                    <GridColumn width={6}>
+                        <ContributeForm address={address} />
+                    </GridColumn>
+                </GridRow>
+                <GridRow>
+                    <GridColumn>
+                        <LinkTo href={`/campaigns/${props.address}/requests`}>
+                            <Button primary>View Requests</Button>
+                        </LinkTo>
+                    </GridColumn>
+                </GridRow>
             </Grid>
         </Layout>
     );
@@ -62,10 +72,7 @@ export default CampaignShow;
 
 CampaignShow.getInitialProps = async (props) => {
     const campaign = Campaign(props.query.address);
-
     const summary = await campaign.methods.getSummary().call();
-
-    console.log(summary);
     return {
         address: props.query.address,
         minimumContribution: summary[0],
